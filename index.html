@@ -7,52 +7,43 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="bg-stone-100 font-sans text-gray-900 antialiased">
+<body class="bg-stone-100 font-sans text-gray-900">
 
-    <!-- MAIN RESPONSIVE CONTAINER -->
-    <div class="flex flex-col lg:flex-row h-screen overflow-hidden">
+    <div class="flex h-screen overflow-hidden">
        
-        <!-- RESPONSIVE HEADER / SIDEBAR NAVIGATION -->
-        <aside class="w-full lg:w-64 bg-white border-b lg:border-b-0 lg:border-r border-gray-200 flex flex-col justify-between p-4 flex-shrink-0 max-h-screen overflow-y-auto">
-            <div class="space-y-4 lg:space-y-6">
-                <!-- Portal Branding Group -->
-                <div class="px-2 lg:px-3 py-1 lg:py-2 flex flex-row lg:flex-col justify-between items-center lg:items-start border-b lg:border-b-0 pb-3 lg:pb-0 border-stone-100">
-                    <div>
-                        <h1 class="text-lg lg:text-xl font-black text-emerald-800 tracking-tight">SNNHS Portal</h1>
-                        <p class="text-[11px] lg:text-xs text-gray-500 font-medium mt-0.5">Enrollment & Document Matrix</p>
-                    </div>
-                    <!-- School Year Dropdown Wrapper for Mobile Alignment -->
-                    <div class="w-36 lg:w-full lg:mt-4">
-                        <label class="block text-[9px] lg:text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-0.5 lg:mb-1">Active School Year</label>
-                        <select id="currentSY" class="w-full bg-stone-50 border border-gray-200 rounded-md p-1 lg:p-1.5 text-xs font-semibold focus:outline-emerald-800">
-                            <option value="2026-2027" selected>2026-2027</option>
-                            <option value="2027-2028">2027-2028</option>
-                        </select>
-                    </div>
+        <aside class="w-64 bg-white border-r border-gray-200 flex flex-col justify-between p-4">
+            <div class="space-y-6">
+                <div class="px-3 py-2">
+                    <h1 class="text-xl font-black text-emerald-800 tracking-tight">SNNHS Portal</h1>
+                    <p class="text-xs text-gray-500 font-medium mt-0.5">Enrollment & Document Matrix</p>
+                </div>
+               
+                <div class="px-3">
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Active School Year</label>
+                    <select id="currentSY" class="w-full bg-stone-50 border border-gray-200 rounded-md p-1.5 text-xs font-semibold focus:outline-emerald-800">
+                        <option value="2026-2027" selected>2026-2027</option>
+                        <option value="2027-2028">2027-2028</option>
+                    </select>
                 </div>
 
-                <!-- Navigation Action Links (Horizontal Scroll on Mobile, Vertical Stack on Desktop) -->
-                <nav class="flex lg:flex-col gap-1.5 overflow-x-auto pb-2 lg:pb-0 scrollbar-none -mx-2 px-2 lg:mx-0 lg:px-0">
-                    <!-- Public Views -->
-                    <button id="btnNavDashboard" class="nav-btn whitespace-nowrap text-left p-2.5 lg:p-3 rounded-lg text-xs lg:text-sm font-bold bg-emerald-800 text-white shadow transition-all flex items-center gap-1">
-                        <span>👑 Welcome Dashboard</span>
+                <nav class="space-y-1">
+                    <button id="btnNavDashboard" class="nav-btn w-full text-left p-3 rounded-lg text-sm font-bold bg-emerald-800 text-white shadow transition-all">
+                        👑 Welcome Dashboard
                     </button>
-                    <button id="btnNavList" class="nav-btn whitespace-nowrap text-left p-2.5 lg:p-3 rounded-lg text-xs lg:text-sm font-semibold text-gray-700 hover:bg-emerald-50 hover:text-emerald-800 transition-all flex items-center gap-1">
-                        <span>📊 Enrolled Registry</span>
+                    <button id="btnNavList" class="nav-btn w-full text-left p-3 rounded-lg text-sm font-semibold text-gray-700 hover:bg-emerald-50 hover:text-emerald-800 transition-all">
+                        📊 Enrolled Registry
                     </button>
 
-                    <!-- Protected Views Section Dividers (Hidden on Mobile to save space) -->
-                    <div class="hidden lg:block pt-3 pb-0.5 px-3">
+                    <div class="pt-4 pb-1 px-3">
                         <span class="block text-[10px] font-bold text-stone-400 uppercase tracking-wider">Administrative Controls</span>
                     </div>
 
-                    <!-- Protected Action Controls -->
-                    <button id="btnNavEnroll" class="nav-btn whitespace-nowrap text-left p-2.5 lg:p-3 rounded-lg text-xs lg:text-sm font-semibold text-gray-700 hover:bg-emerald-50 hover:text-emerald-800 transition-all flex items-center justify-between gap-2">
-                        <span class="flex items-center gap-1">📝 Process Enrollment</span>
+                    <button id="btnNavEnroll" class="nav-btn w-full text-left p-3 rounded-lg text-sm font-semibold text-gray-700 hover:bg-emerald-50 hover:text-emerald-800 transition-all flex items-center justify-between">
+                        <span>📝 Process Enrollment</span>
                         <span class="text-xs text-stone-400">🔒</span>
                     </button>
-                    <button id="btnNavChecklist" class="nav-btn whitespace-nowrap text-left p-2.5 lg:p-3 rounded-lg text-xs lg:text-sm font-semibold text-gray-700 hover:bg-emerald-50 hover:text-emerald-800 transition-all flex items-center justify-between gap-2">
-                        <span class="flex items-center gap-1">🔍 Document Checklist</span>
+                    <button id="btnNavChecklist" class="nav-btn w-full text-left p-3 rounded-lg text-sm font-semibold text-gray-700 hover:bg-emerald-50 hover:text-emerald-800 transition-all flex items-center justify-between">
+                        <span>🔍 Document Checklist</span>
                         <span class="text-xs text-stone-400">🔒</span>
                     </button>
                     
@@ -60,54 +51,50 @@
                     <button id="btnNavSearch" class="hidden"></button>
                 </nav>
             </div>
-            <div class="hidden lg:block px-3 py-2 border-t border-gray-100 text-[11px] text-gray-400 font-medium">
+            <div class="px-3 py-2 border-t border-gray-100 text-[11px] text-gray-400 font-medium">
                 SNNHS Admin Support &copy; 2026
             </div>
         </aside>
 
-        <!-- MAIN PANEL VIEWS CONTAINER -->
-        <main class="flex-1 bg-stone-50 overflow-y-auto p-4 lg:p-8">
+        <main class="flex-1 bg-stone-50 overflow-y-auto p-8">
            
-            <!-- 👑 PANEL: WELCOME DASHBOARD (PUBLIC) -->
-            <section id="panelDashboard" class="space-y-4 lg:space-y-6">
-                <div class="bg-gradient-to-r from-emerald-800 to-emerald-950 p-4 lg:p-6 rounded-xl lg:rounded-2xl text-white shadow-md">
-                    <h1 class="text-lg lg:text-2xl font-bold tracking-tight uppercase">Southern NNHS Enrollment Registry Portal</h1>
-                    <p class="text-emerald-100 text-xs lg:text-sm mt-1">Welcome! Live summary data matrix of enrollees categorized by gender.</p>
+            <section id="panelDashboard" class="space-y-6">
+                <div class="bg-gradient-to-r from-emerald-800 to-emerald-950 p-6 rounded-2xl text-white shadow-md">
+                    <h1 class="text-2xl font-bold tracking-tight uppercase">Southern NNHS Enrollment Registry Portal</h1>
+                    <p class="text-emerald-100 text-sm mt-1">Welcome! Live summary data matrix of enrollees categorized by gender.</p>
                 </div>
 
-                <!-- Simple Grid Summary Cards -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 lg:gap-4">
-                    <div class="bg-white border border-stone-200 p-4 lg:p-5 rounded-xl shadow-sm">
-                        <p class="text-[10px] lg:text-xs font-bold text-stone-500 uppercase tracking-wider">Total Enrolled Learners</p>
-                        <h3 id="dashStatTotal" class="text-2xl lg:text-3xl font-black text-stone-800 mt-1">0</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white border border-stone-200 p-5 rounded-xl shadow-sm">
+                        <p class="text-xs font-bold text-stone-500 uppercase tracking-wider">Total Enrolled Learners</p>
+                        <h3 id="dashStatTotal" class="text-3xl font-black text-stone-800 mt-1">0</h3>
                     </div>
-                    <div class="bg-white border border-stone-200 p-4 lg:p-5 rounded-xl shadow-sm">
-                        <p class="text-[10px] lg:text-xs font-bold text-emerald-600 uppercase tracking-wider">Total Male Students</p>
-                        <h3 id="dashStatMale" class="text-2xl lg:text-3xl font-black text-emerald-700 mt-1">0</h3>
+                    <div class="bg-white border border-stone-200 p-5 rounded-xl shadow-sm">
+                        <p class="text-xs font-bold text-emerald-600 uppercase tracking-wider">Total Male Students</p>
+                        <h3 id="dashStatMale" class="text-3xl font-black text-emerald-700 mt-1">0</h3>
                     </div>
-                    <div class="bg-white border border-stone-200 p-4 lg:p-5 rounded-xl shadow-sm">
-                        <p class="text-[10px] lg:text-xs font-bold text-rose-600 uppercase tracking-wider">Total Female Students</p>
-                        <h3 id="dashStatFemale" class="text-2xl lg:text-3xl font-black text-rose-700 mt-1">0</h3>
+                    <div class="bg-white border border-stone-200 p-5 rounded-xl shadow-sm">
+                        <p class="text-xs font-bold text-rose-600 uppercase tracking-wider">Total Female Students</p>
+                        <h3 id="dashStatFemale" class="text-3xl font-black text-rose-700 mt-1">0</h3>
                     </div>
                 </div>
 
-                <!-- Gender Categorized Table Matrix -->
                 <div class="bg-white border border-stone-200 rounded-xl shadow-sm overflow-hidden">
-                    <div class="p-3 lg:p-4 bg-stone-50 border-b border-stone-100 flex justify-between items-center">
-                        <h2 class="text-xs lg:text-sm font-bold text-stone-700 uppercase tracking-wide">Grade Level Summary Table</h2>
-                        <button id="btnRefreshDashboard" class="text-[11px] lg:text-xs bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-1.5 px-3 rounded shadow transition-all">🔄 Refresh Stats</button>
+                    <div class="p-4 bg-stone-50 border-b border-stone-100 flex justify-between items-center">
+                        <h2 class="text-sm font-bold text-stone-700 uppercase tracking-wide">Grade Level Summary Table</h2>
+                        <button id="btnRefreshDashboard" class="text-xs bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-1.5 px-3 rounded shadow transition-all">🔄 Refresh Stats</button>
                     </div>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left border-collapse">
                             <thead>
-                                <tr class="bg-stone-100/70 text-stone-600 font-bold text-[11px] lg:text-xs uppercase border-b border-stone-200">
-                                    <th class="p-3 lg:p-4">Grade Level</th>
-                                    <th class="p-3 lg:p-4 text-center">Male (M)</th>
-                                    <th class="p-3 lg:p-4 text-center">Female (F)</th>
-                                    <th class="p-3 lg:p-4 text-center bg-stone-100/90 font-black text-stone-800">Total Enrollees</th>
+                                <tr class="bg-stone-100/70 text-stone-600 font-bold text-xs uppercase border-b border-stone-200">
+                                    <th class="p-4">Grade Level</th>
+                                    <th class="p-4 text-center">Male (M)</th>
+                                    <th class="p-4 text-center">Female (F)</th>
+                                    <th class="p-4 text-center bg-stone-100/90 font-black text-stone-800">Total Enrollees</th>
                                 </tr>
                             </thead>
-                            <tbody id="dashboardMetricsBody" class="divide-y divide-stone-100 text-xs lg:text-sm font-medium text-stone-700">
+                            <tbody id="dashboardMetricsBody" class="divide-y divide-stone-100 text-sm font-medium text-stone-700">
                                 <tr>
                                     <td colspan="4" class="p-6 text-center text-stone-400 italic">Calculating registry tallies...</td>
                                 </tr>
@@ -117,22 +104,21 @@
                 </div>
             </section>
 
-            <!-- 📊 PANEL: ENROLLED REGISTRY LEDGER MATRIX (PUBLIC) -->
-            <section id="panelList" class="bg-white rounded-xl border border-gray-200 shadow-sm p-4 lg:p-6 space-y-4 lg:space-y-6 hidden">
+            <section id="panelList" class="bg-white rounded-xl border border-gray-200 shadow-sm p-6 space-y-6 hidden">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div>
-                        <h2 class="text-base lg:text-lg font-bold text-gray-900">Enrolled Registry Ledger Matrix</h2>
-                        <p class="text-xs lg:text-sm text-gray-500">Generate structural cross-table rosters grouped alphabetically by Last Name.</p>
+                        <h2 class="text-lg font-bold text-gray-900">Enrolled Registry Ledger Matrix</h2>
+                        <p class="text-sm text-gray-500">Generate structural cross-table rosters grouped alphabetically by Last Name.</p>
                     </div>
-                    <button id="btnExportExcel" class="hidden bg-stone-900 text-white font-bold text-xs lg:text-sm px-4 py-2.5 rounded-lg hover:bg-black transition-all flex items-center space-x-2 w-fit">
+                    <button id="btnExportExcel" class="hidden bg-stone-900 text-white font-bold text-sm px-4 py-2.5 rounded-lg hover:bg-black transition-all flex items-center space-x-2">
                         <span>📊 Export to Excel CSV</span>
                     </button>
                 </div>
 
-                <div class="flex items-end gap-3 bg-stone-50 border border-stone-200 p-3 lg:p-4 rounded-xl max-w-md">
+                <div class="flex items-end gap-3 bg-stone-50 border border-stone-200 p-4 rounded-xl max-w-md">
                     <div class="flex-1">
-                        <label class="block text-[10px] lg:text-xs font-bold text-gray-600 uppercase mb-1">Filter by Grade Level</label>
-                        <select id="filterGradeLevel" class="w-full border border-gray-200 rounded-lg p-2 text-xs lg:text-sm bg-white focus:outline-emerald-800 font-semibold">
+                        <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Filter by Grade Level</label>
+                        <select id="filterGradeLevel" class="w-full border border-gray-200 rounded-lg p-2 text-sm bg-white focus:outline-emerald-800 font-semibold">
                             <option value="7">Grade 7</option>
                             <option value="8">Grade 8</option>
                             <option value="9">Grade 9</option>
@@ -141,16 +127,16 @@
                             <option value="12">Grade 12</option>
                         </select>
                     </div>
-                    <button id="btnFetchRegistryList" class="bg-emerald-800 text-white font-bold text-xs lg:text-sm px-4 lg:push-5 py-2 rounded-lg hover:bg-emerald-900 transition-all h-9">
+                    <button id="btnFetchRegistryList" class="bg-emerald-800 text-white font-bold text-sm px-5 py-2 rounded-lg hover:bg-emerald-900 transition-all h-9">
                         🔄 Load Registry
                     </button>
                 </div>
 
                 <div class="border border-gray-200 rounded-xl overflow-hidden shadow-sm">
                     <div class="overflow-x-auto">
-                        <table class="w-full text-left text-xs lg:text-sm border-collapse">
+                        <table class="w-full text-left text-sm border-collapse">
                             <thead>
-                                <tr class="bg-stone-50 font-bold border-b border-gray-200 text-[10px] lg:text-xs text-gray-600 uppercase">
+                                <tr class="bg-stone-50 font-bold border-b border-gray-200 text-xs text-gray-600 uppercase">
                                     <th class="p-3">#</th>
                                     <th class="p-3">STUDENT LRN</th>
                                     <th class="p-3">FULL STUDENT NAME (LAST, FIRST, MIDDLE)</th>
@@ -171,48 +157,47 @@
                 </div>
             </section>
 
-            <!-- 📝 PANEL: PROCESS ENROLLMENT TRANSACTION (PROTECTED) -->
-            <section id="panelEnroll" class="max-w-3xl bg-white rounded-xl border border-gray-200 shadow-sm p-4 lg:p-6 space-y-4 lg:space-y-6 hidden">
+            <section id="panelEnroll" class="max-w-3xl bg-white rounded-xl border border-gray-200 shadow-sm p-6 space-y-6 hidden">
                 <div>
-                    <h2 class="text-base lg:text-lg font-bold text-gray-900">New Student Enrollment Transaction</h2>
-                    <p class="text-xs lg:text-sm text-gray-500">Submit student profiles directly to the Core database tables.</p>
+                    <h2 class="text-lg font-bold text-gray-900">New Student Enrollment Transaction</h2>
+                    <p class="text-sm text-gray-500">Submit student profiles directly to the Core database tables.</p>
                 </div>
 
-                <form id="formEnrollStudent" class="space-y-4 lg:space-y-6">
+                <form id="formEnrollStudent" class="space-y-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-[10px] lg:text-xs font-bold text-gray-600 uppercase mb-1">Learner Reference Number (LRN)</label>
-                            <input type="text" id="studentLRN" required maxlength="12" placeholder="12-digit LRN" class="w-full border border-gray-200 rounded-lg p-2.5 text-xs lg:text-sm focus:outline-emerald-800 font-mono">
+                            <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Learner Reference Number (LRN)</label>
+                            <input type="text" id="studentLRN" required maxlength="12" placeholder="12-digit LRN" class="w-full border border-gray-200 rounded-lg p-2.5 text-sm focus:outline-emerald-800 font-mono">
                         </div>
                         <div>
-                            <label class="block text-[10px] lg:text-xs font-bold text-gray-600 uppercase mb-1">Date Filed</label>
-                            <input type="date" id="enrollDate" readonly class="w-full bg-stone-100 border border-gray-200 rounded-lg p-2.5 text-xs lg:text-sm font-mono text-gray-500">
+                            <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Date Filed</label>
+                            <input type="date" id="enrollDate" readonly class="w-full bg-stone-100 border border-gray-200 rounded-lg p-2.5 text-sm font-mono text-gray-500">
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                        <div>
-                            <label class="block text-[10px] lg:text-xs font-bold text-gray-600 uppercase mb-1">Last Name</label>
-                            <input type="text" id="lastName" required class="w-full border border-gray-200 rounded-lg p-2.5 text-xs lg:text-sm focus:outline-emerald-800">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="md:col-span-1">
+                            <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Last Name</label>
+                            <input type="text" id="lastName" required class="w-full border border-gray-200 rounded-lg p-2.5 text-sm focus:outline-emerald-800">
                         </div>
-                        <div>
-                            <label class="block text-[10px] lg:text-xs font-bold text-gray-600 uppercase mb-1">First Name</label>
-                            <input type="text" id="firstName" required class="w-full border border-gray-200 rounded-lg p-2.5 text-xs lg:text-sm focus:outline-emerald-800">
+                        <div class="md:col-span-1">
+                            <label class="block text-xs font-bold text-gray-600 uppercase mb-1">First Name</label>
+                            <input type="text" id="firstName" required class="w-full border border-gray-200 rounded-lg p-2.5 text-sm focus:outline-emerald-800">
                         </div>
-                        <div>
-                            <label class="block text-[10px] lg:text-xs font-bold text-gray-600 uppercase mb-1">Middle Name</label>
-                            <input type="text" id="middleName" class="w-full border border-gray-200 rounded-lg p-2.5 text-xs lg:text-sm focus:outline-emerald-800">
+                        <div class="md:col-span-1">
+                            <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Middle Name</label>
+                            <input type="text" id="middleName" class="w-full border border-gray-200 rounded-lg p-2.5 text-sm focus:outline-emerald-800">
                         </div>
-                        <div>
-                            <label class="block text-[10px] lg:text-xs font-bold text-gray-600 uppercase mb-1">Ext. Name</label>
-                            <input type="text" id="extensionName" placeholder="e.g. JR, III" class="w-full border border-gray-200 rounded-lg p-2.5 text-xs lg:text-sm focus:outline-emerald-800">
+                        <div class="md:col-span-1">
+                            <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Ext. Name</label>
+                            <input type="text" id="extensionName" placeholder="e.g. JR, III" class="w-full border border-gray-200 rounded-lg p-2.5 text-sm focus:outline-emerald-800">
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-[10px] lg:text-xs font-bold text-gray-600 uppercase mb-1">Target Grade Level</label>
-                            <select id="enrollGradeLevel" required class="w-full border border-gray-200 rounded-lg p-2.5 text-xs lg:text-sm focus:outline-emerald-800 bg-white">
+                            <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Target Grade Level</label>
+                            <select id="enrollGradeLevel" required class="w-full border border-gray-200 rounded-lg p-2.5 text-sm focus:outline-emerald-800 bg-white">
                                 <option value="">-- Select Grade Level --</option>
                                 <option value="Grade 7">Grade 7</option>
                                 <option value="Grade 8">Grade 8</option>
@@ -223,8 +208,8 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-[10px] lg:text-xs font-bold text-gray-600 uppercase mb-1">Gender</label>
-                            <select id="enrollGender" class="w-full border border-gray-200 rounded-lg p-2.5 text-xs lg:text-sm focus:outline-emerald-800 bg-white">
+                            <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Gender</label>
+                            <select id="enrollGender" class="w-full border border-gray-200 rounded-lg p-2.5 text-sm focus:outline-emerald-800 bg-white">
                                 <option value="">-- Select --</option>
                                 <option value="MALE">Male</option>
                                 <option value="FEMALE">Female</option>
@@ -232,26 +217,26 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-gray-100 pt-4">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 border-t border-gray-100 pt-4">
                         <div>
-                            <label class="block text-[10px] lg:text-xs font-bold text-gray-600 uppercase mb-1">Returning Learner?</label>
-                            <select id="isReturningLearner" class="w-full border border-gray-200 rounded-lg p-2.5 text-xs lg:text-sm focus:outline-emerald-800 bg-white">
+                            <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Returning Learner?</label>
+                            <select id="isReturningLearner" class="w-full border border-gray-200 rounded-lg p-2.5 text-sm focus:outline-emerald-800 bg-white">
                                 <option value="">-- Select --</option>
                                 <option value="YES">Yes</option>
                                 <option value="NO">No</option>
                             </select>
                         </div>
                         <div>
-                            <label class="block text-[10px] lg:text-xs font-bold text-gray-600 uppercase mb-1">SHS Learner?</label>
-                            <select id="isSHSLearner" class="w-full border border-gray-200 rounded-lg p-2.5 text-xs lg:text-sm focus:outline-emerald-800 bg-white">
+                            <label class="block text-xs font-bold text-gray-600 uppercase mb-1">SHS Learner?</label>
+                            <select id="isSHSLearner" class="w-full border border-gray-200 rounded-lg p-2.5 text-sm focus:outline-emerald-800 bg-white">
                                 <option value="">-- Select --</option>
                                 <option value="YES">Yes</option>
                                 <option value="NO">No</option>
                             </select>
                         </div>
                         <div>
-                            <label class="block text-[10px] lg:text-xs font-bold text-gray-600 uppercase mb-1">Transferee?</label>
-                            <select id="isTransferee" class="w-full border border-gray-200 rounded-lg p-2.5 text-xs lg:text-sm focus:outline-emerald-800 bg-white">
+                            <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Transferee?</label>
+                            <select id="isTransferee" class="w-full border border-gray-200 rounded-lg p-2.5 text-sm focus:outline-emerald-800 bg-white">
                                 <option value="">-- Select --</option>
                                 <option value="YES">Yes</option>
                                 <option value="NO">No</option>
@@ -260,26 +245,26 @@
                     </div>
 
                     <div class="border-t border-gray-100 pt-4">
-                        <label class="block text-[10px] lg:text-xs font-bold text-gray-600 uppercase mb-1">Current Address</label>
-                        <input type="text" id="currentAddress" placeholder="House No., Street, Barangay, Municipality, Province" class="w-full border border-gray-200 rounded-lg p-2.5 text-xs lg:text-sm focus:outline-emerald-800">
+                        <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Current Address</label>
+                        <input type="text" id="currentAddress" placeholder="House No., Street, Barangay, Municipality, Province" class="w-full border border-gray-200 rounded-lg p-2.5 text-sm focus:outline-emerald-800">
                     </div>
 
                     <div class="border-t border-gray-100 pt-4">
-                        <h3 class="text-[10px] lg:text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Initial Document Checklists</h3>
+                        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Initial Document Checklists</h3>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <label class="flex items-center space-x-3 bg-stone-50 border border-gray-100 p-3 rounded-lg text-xs lg:text-sm font-medium cursor-pointer hover:bg-stone-100/50">
+                            <label class="flex items-center space-x-3 bg-stone-50 border border-gray-100 p-3 rounded-lg text-sm font-medium cursor-pointer hover:bg-stone-100/50">
                                 <input type="checkbox" id="checkEnrollmentForm" class="rounded text-emerald-800 focus:ring-emerald-800 h-4 w-4">
                                 <span>Basic Enrollment Form</span>
                             </label>
-                            <label class="flex items-center space-x-3 bg-stone-50 border border-gray-100 p-3 rounded-lg text-xs lg:text-sm font-medium cursor-pointer hover:bg-stone-100/50">
+                            <label class="flex items-center space-x-3 bg-stone-50 border border-gray-100 p-3 rounded-lg text-sm font-medium cursor-pointer hover:bg-stone-100/50">
                                 <input type="checkbox" id="checkBrigadaSlip" class="rounded text-emerald-800 focus:ring-emerald-800 h-4 w-4">
                                 <span>Brigada Eskwela Slip</span>
                             </label>
-                            <label class="flex items-center space-x-3 bg-stone-50 border border-gray-100 p-3 rounded-lg text-xs lg:text-sm font-medium cursor-pointer hover:bg-stone-100/50">
+                            <label class="flex items-center space-x-3 bg-stone-50 border border-gray-100 p-3 rounded-lg text-sm font-medium cursor-pointer hover:bg-stone-100/50">
                                 <input type="checkbox" id="checkCard" class="rounded text-emerald-800 focus:ring-emerald-800 h-4 w-4">
                                 <span>SF9 / Progress Report Card</span>
                             </label>
-                            <label class="flex items-center space-x-3 bg-stone-50 border border-gray-100 p-3 rounded-lg text-xs lg:text-sm font-medium cursor-pointer hover:bg-stone-100/50">
+                            <label class="flex items-center space-x-3 bg-stone-50 border border-gray-100 p-3 rounded-lg text-sm font-medium cursor-pointer hover:bg-stone-100/50">
                                 <input type="checkbox" id="checkPSABirthCertificate" class="rounded text-emerald-800 focus:ring-emerald-800 h-4 w-4">
                                 <span>PSA Birth Certificate</span>
                             </label>
@@ -287,43 +272,42 @@
                     </div>
                     <div class="mt-4">
                         <label class="block text-xs font-semibold text-gray-600 mb-1">Enrollment Process Remarks / Internal Notes</label>
-                        <textarea id="checkRemarks" rows="2" class="w-full p-2.5 text-xs lg:text-sm bg-white border rounded-lg" placeholder="e.g., LCR Birth Cert submitted instead of PSA; Card to follow by July."></textarea>
+                        <textarea id="checkRemarks" rows="2" class="w-full p-2.5 text-sm bg-white border rounded-lg" placeholder="e.g., LCR Birth Cert submitted instead of PSA; Card to follow by July."></textarea>
                     </div>
                     <div class="pt-2">
-                        <button type="submit" class="w-full sm:w-auto bg-emerald-800 text-white font-bold text-xs lg:text-sm px-6 py-3 rounded-lg shadow-sm hover:bg-emerald-900 transition-all">
+                        <button type="submit" class="bg-emerald-800 text-white font-bold text-sm px-6 py-3 rounded-lg shadow-sm hover:bg-emerald-900 transition-all">
                             ⚡ Process Enrollment
                         </button>
                     </div>
                 </form>
             </section>
 
-            <!-- 🔍 PANEL: DOCUMENT REQUIREMENTS CHECKLIST MATRIX (PROTECTED) -->
-            <section id="panelChecklist" class="max-w-3xl bg-white rounded-xl border border-gray-200 shadow-sm p-4 lg:p-6 space-y-4 lg:space-y-6 hidden">
+            <section id="panelChecklist" class="max-w-3xl bg-white rounded-xl border border-gray-200 shadow-sm p-6 space-y-6 hidden">
                 <div>
-                    <h2 class="text-base lg:text-lg font-bold text-gray-900">Document Requirements Checklist Matrix</h2>
-                    <p class="text-xs lg:text-sm text-gray-500">Query a student profile by LRN or Name to manage their submission properties.</p>
+                    <h2 class="text-lg font-bold text-gray-900">Document Requirements Checklist Matrix</h2>
+                    <p class="text-sm text-gray-500">Query a student profile by LRN or Name to manage their submission properties.</p>
                 </div>
 
-                <div class="flex flex-col sm:flex-row gap-3 max-w-md">
-                    <input type="text" id="checklistSearchLRN" placeholder="Enter LRN or Name..." class="flex-1 border border-gray-200 rounded-lg p-2.5 text-xs lg:text-sm focus:outline-emerald-800">
-                    <button id="btnSearchChecklist" class="bg-emerald-800 text-white font-bold text-xs lg:text-sm px-5 py-2.5 rounded-lg hover:bg-emerald-900 transition-all whitespace-nowrap">
+                <div class="flex gap-3 max-w-md">
+                    <input type="text" id="checklistSearchLRN" placeholder="Enter LRN or Name..." class="flex-1 border border-gray-200 rounded-lg p-2.5 text-sm focus:outline-emerald-800">
+                    <button id="btnSearchChecklist" class="bg-emerald-800 text-white font-bold text-sm px-5 py-2.5 rounded-lg hover:bg-emerald-900 transition-all">
                         Fetch Records
                     </button>
                 </div>
 
-                <div id="checklistStatusArea" class="hidden bg-white p-4 lg:p-6 rounded-xl shadow-md border border-gray-100 space-y-4 lg:space-y-6">
+                <div id="checklistStatusArea" class="hidden bg-white p-6 rounded-xl shadow-md border border-gray-100 space-y-6">
                     <div class="border-b pb-4">
-                        <h3 class="text-base lg:text-lg font-bold text-emerald-900" id="checklistTargetName">---</h3>
+                        <h3 class="text-lg font-bold text-emerald-900" id="checklistTargetName">---</h3>
                         <p class="text-xs text-gray-500 font-mono mt-1">LRN: <span id="checklistTargetLRN" class="font-bold text-gray-700">---</span> | <span id="checklistTargetGrade" class="font-semibold text-emerald-700">---</span></p>
                     </div>
 
                     <div class="bg-stone-50 p-4 rounded-lg border border-stone-200/60 space-y-4">
-                        <h4 class="text-[10px] lg:text-xs font-bold uppercase tracking-wider text-stone-500">✏️ Edit Core Profile & Enrollment Data</h4>
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-stone-500">✏️ Edit Core Profile & Enrollment Data</h4>
                        
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-xs font-semibold text-gray-600 mb-1">Gender</label>
-                                <select id="editGender" class="w-full p-2 text-xs lg:text-sm bg-white border rounded-md">
+                                <select id="editGender" class="w-full p-2 text-sm bg-white border rounded-md">
                                     <option value="">-- Select Gender --</option>
                                     <option value="MALE">MALE</option>
                                     <option value="FEMALE">FEMALE</option>
@@ -332,12 +316,12 @@
                            
                             <div>
                                 <label class="block text-xs font-semibold text-gray-600 mb-1">Current Address</label>
-                                <input type="text" id="editCurAdd" class="w-full p-2 text-xs lg:text-sm bg-white border rounded-md" placeholder="House No., Street, Barangay, Municipality">
+                                <input type="text" id="editCurAdd" class="w-full p-2 text-sm bg-white border rounded-md" placeholder="House No., Street, Barangay, Municipality">
                             </div>
 
                             <div>
                                 <label class="block text-xs font-semibold text-gray-600 mb-1">Returning Learner (Balik-Aral)</label>
-                                <select id="editIsReturning" class="w-full p-2 text-xs lg:text-sm bg-white border rounded-md">
+                                <select id="editIsReturning" class="w-full p-2 text-sm bg-white border rounded-md">
                                     <option value="NO">NO</option>
                                     <option value="YES">YES</option>
                                 </select>
@@ -345,7 +329,7 @@
 
                             <div>
                                 <label class="block text-xs font-semibold text-gray-600 mb-1">Senior High School Learner</label>
-                                <select id="editIsSHS" class="w-full p-2 text-xs lg:text-sm bg-white border rounded-md">
+                                <select id="editIsSHS" class="w-full p-2 text-sm bg-white border rounded-md">
                                     <option value="NO">NO</option>
                                     <option value="YES">YES</option>
                                 </select>
@@ -353,7 +337,7 @@
 
                             <div class="md:col-span-2">
                                 <label class="block text-xs font-semibold text-gray-600 mb-1">Transferee</label>
-                                <select id="editIsTransferee" class="w-full p-2 text-xs lg:text-sm bg-white border rounded-md">
+                                <select id="editIsTransferee" class="w-full p-2 text-sm bg-white border rounded-md">
                                     <option value="NO">NO</option>
                                     <option value="YES">YES</option>
                                 </select>
@@ -362,22 +346,22 @@
                     </div>
 
                     <div class="space-y-3">
-                        <h4 class="text-[10px] lg:text-xs font-bold uppercase tracking-wider text-gray-400">📋 Document Checklist Parameters</h4>
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-gray-400">📋 Document Checklist Parameters</h4>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <label class="flex items-center space-x-3 p-2.5 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer text-xs lg:text-sm">
+                            <label class="flex items-center space-x-3 p-2.5 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer text-sm">
                                 <input type="checkbox" id="updateCheckEnrollmentForm" class="rounded text-emerald-600 focus:ring-emerald-500 w-4 h-4">
                                 <span class="text-gray-700 font-medium">Enrollment Form</span>
                             </label>
 
-                            <label class="flex items-center space-x-3 p-2.5 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer text-xs lg:text-sm">
+                            <label class="flex items-center space-x-3 p-2.5 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer text-sm">
                                 <input type="checkbox" id="updateCheckBrigadaSlip" class="rounded text-emerald-600 focus:ring-emerald-500 w-4 h-4">
                                 <span class="text-gray-700 font-medium">Brigada Slip</span>
                             </label>
-                            <label class="flex items-center space-x-3 p-2.5 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer text-xs lg:text-sm">
+                            <label class="flex items-center space-x-3 p-2.5 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer text-sm">
                                 <input type="checkbox" id="updateCheckCard" class="rounded text-emerald-600 focus:ring-emerald-500 w-4 h-4">
                                 <span class="text-gray-700 font-medium">Report Card (SF9)</span>
                             </label>
-                            <label class="flex items-center space-x-3 p-2.5 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer text-xs lg:text-sm">
+                            <label class="flex items-center space-x-3 p-2.5 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer text-sm">
                                 <input type="checkbox" id="updateCheckPSABirthCertificate" class="rounded text-emerald-600 focus:ring-emerald-500 w-4 h-4">
                                 <span class="text-gray-700 font-medium">PSA Birth Certificate</span>
                             </label>
@@ -385,9 +369,9 @@
                     </div>
                     <div class="mt-4">
                         <label class="block text-xs font-semibold text-stone-600 mb-1">Update Checklist Remarks / Notes</label>
-                        <textarea id="updateCheckRemarks" rows="2" class="w-full p-2.5 text-xs lg:text-sm bg-white border rounded-lg" placeholder="Update notes or tracking information here..."></textarea>
+                        <textarea id="updateCheckRemarks" rows="2" class="w-full p-2.5 text-sm bg-white border rounded-lg" placeholder="Update notes or tracking information here..."></textarea>
                     </div>
-                    <button id="btnUpdateChecklist" class="w-full p-3.5 bg-emerald-800 hover:bg-emerald-950 text-white rounded-xl text-xs lg:text-sm font-bold shadow-md transition-all">
+                    <button id="btnUpdateChecklist" class="w-full p-3.5 bg-emerald-800 hover:bg-emerald-950 text-white rounded-xl text-sm font-bold shadow-md transition-all">
                         💾 Save Student Details & Checklist Updates
                     </button>
                 </div>
@@ -399,16 +383,15 @@
         </main>
     </div>
 
-    <!-- 🔒 ADMINISTRATIVE PASSWORD INTERCEPTOR MODAL -->
     <div id="adminPasswordModal" class="fixed inset-0 bg-stone-900/80 backdrop-blur-sm z-50 flex items-center justify-center hidden">
         <div class="bg-white rounded-2xl border border-stone-200 shadow-xl max-w-sm w-full p-6 space-y-4 m-4">
             <div class="text-center space-y-1">
                 <span class="text-3xl">🛡️</span>
-                <h3 class="text-base lg:text-lg font-bold text-stone-800">Administrator Clearance</h3>
+                <h3 class="text-lg font-bold text-stone-800">Administrator Clearance</h3>
                 <p class="text-xs text-stone-500">Please enter your system access password to manage core enrollment datasets.</p>
             </div>
             <form id="formAdminAuth" class="space-y-3">
-                <input type="password" id="adminInputPassword" required placeholder="••••••••" class="w-full border text-center tracking-widest border-stone-300 rounded-lg p-3 text-xs lg:text-sm focus:outline-emerald-800 font-mono">
+                <input type="password" id="adminInputPassword" required placeholder="••••••••" class="w-full border text-center tracking-widest border-stone-300 rounded-lg p-3 text-sm focus:outline-emerald-800 font-mono">
                 <div class="flex gap-2">
                     <button type="button" id="btnCancelAuth" class="flex-1 bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs py-2.5 rounded-lg transition-all">
                         Cancel
@@ -421,10 +404,6 @@
         </div>
     </div>
 
-    <!-- Extra Inline Utility CSS snippet to eliminate ugly scrollbar thumbs on mobile horizontal navigation tabs -->
-    <style>
-        .scrollbar-none::-webkit-scrollbar { display: none; }
-        .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
-    </style>
+    <script src="app.js"></script>
 </body>
 </html>
